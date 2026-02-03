@@ -1,7 +1,7 @@
 
 
 export const Cards = ({item}) => {
-    console.log(item.image);
+    // console.log(item.image);
     
     return (
         <>

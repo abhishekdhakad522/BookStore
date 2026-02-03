@@ -3,17 +3,36 @@ import listUrl from '../../public/list.json?url'
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import axios from 'axios';
+
 export const Course = () => {
 
-  const [list, setList] = useState([]);
+  // const [list, setList] = useState([]);
 
-  useEffect(() => {
-    fetch(listUrl)
-      .then(res => res.json())
-      .then(data => setList(data))
+  // useEffect(() => {
+  //   fetch(listUrl)
+  //     .then(res => res.json())
+  //     .then(data => setList(data))
 
-  }, []);
-  console.log(list);
+  // }, []);
+  // console.log(list);
+
+const [book, setBook] = useState([]);
+useEffect(()=>{
+  const getBook = async ()=>{
+    try {
+           const response = await axios.get('http://localhost:3000/book');
+        // console.log(`Data fetch sucess from backend \n ${response.data}`);
+        
+           setBook(response.data);
+    } catch (error) {
+      console.log(`Axios Error: ${error}`);
+      
+    }
+  }
+
+  getBook();
+},[])
 
   return (
     <>
@@ -31,7 +50,7 @@ export const Course = () => {
         </div>
         <div className="mt-10 grid grid-cols-1 md:grid-cols-4 justify-items-center items-center">
           {
-            list.map((elem) => {
+            book.map((elem) => {
               return <Cards item={elem} key={elem.id} />
             })
           }

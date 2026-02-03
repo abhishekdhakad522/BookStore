@@ -5,15 +5,35 @@ import Slider from "react-slick";
 import listUrl from '../../public/list.json?url'
 import { Cards } from "./Cards";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 export const Freebooks = () => {
-    const [list, setList] = useState([]);
+    // const [list, setList] = useState([]);
 
+    // useEffect(() => {
+    //     fetch(listUrl)
+    //         .then(res => res.json())
+    //         .then(data => setList(data));
+    // }, []);
+
+    const [filterBook, setFilterBook] = useState([]);
     useEffect(() => {
-        fetch(listUrl)
-        .then(res => res.json())
-        .then(data => setList(data));
+        const getBook = async () => {
+
+            try {
+                const response = await axios.get("http://localhost:3000/book");
+                // console.log(response.data);
+                setFilterBook(response.data.filter((data) => data.category === "free"));
+            } catch (error) {
+                console.log(`Error to fetch data from Backend ${error}`);
+                
+            }
+        }
+
+        getBook();
+
     }, []);
+
     const settings = {
         dots: true,
         infinite: false,
@@ -52,7 +72,8 @@ export const Freebooks = () => {
         ]
     };
 
-    const filterData = list.filter((data) => data.category === "free");
+    // const filterData = list.filter((data) => data.category === "free");
+
     // console.log(filterData);
 
 
@@ -64,16 +85,17 @@ export const Freebooks = () => {
                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maxime commodi error suscipit doloribus dignissimos. Harum accusamus est animi illo possimus?</p>
 
                 </div>
-            
-            <div className="pt-5 px-0 sm:px-4">
-                <Slider {...settings}>
-                {
-                    filterData.map((item)=>
-                    <Cards item ={item} key={item.id}/>)
-                }
-                </Slider>
+
+                <div className="pt-5 px-0 sm:px-4">
+                    <Slider {...settings}>
+                        {
+                            // filterData.map((item) =>
+                            filterBook.map((item) =>
+                                <Cards item={item} key={item.id} />)
+                        }
+                    </Slider>
+                </div>
             </div>
-        </div>
         </>
     )
 }
