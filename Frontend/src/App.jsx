@@ -7,6 +7,7 @@ import { Signup } from './components/Signup'
 import Courses from './courses/Courses'
 import { Home } from './home/Home'
 import { Route, Routes } from "react-router"
+import  { Toaster } from 'react-hot-toast';
 function App() {
   return (
     <>
@@ -19,6 +20,7 @@ function App() {
         <Route path='/about'  element ={<About/>}/>
         <Route path='/signup' element= {<Signup/>}/>
       </Routes>
+      <Toaster />
     </div>
     
     </>
