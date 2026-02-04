@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import axios from "axios";
 import toast from "react-hot-toast";
 
 export const Login = () => {
 
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -18,10 +19,14 @@ export const Login = () => {
       await axios.post("http://localhost:3000/user/signin",UserInfo)
       .then((res)=>{
         console.log(res.data);
-        if(res.data)
-          toast.success('loggedin successfully!');
-          // alert("login successfully")
-                  
+        if(res.data){
+          toast.success('Logged in successfully!');
+          localStorage.setItem("Users", JSON.stringify(res.data.user));
+          document.getElementById('my_modal_3').close();
+          setTimeout(() => {
+            window.location.href = "/";
+          }, 1000);
+        }
       })
       .catch((error)=>{
         if(error.response){
