@@ -42,7 +42,7 @@ export const Navbar = () => {
     return (
         <>
             <div
-                className={` ${sticky ? "sticky-navbar shadow-md bg-base-200 duration-300 transition-all ease-in-out" : ""} max-w-screen-2xl container mx-auto md:px-20 px-4 fixed top-0 left-0 right-0 z-50`}
+                className={` ${sticky ? "sticky-navbar shadow-md bg-base-200 duration-300 transition-all ease-in-out" : "bg-base-100"} max-w-screen-2xl container mx-auto md:px-20 px-4 fixed top-0 left-0 right-0 z-50`}
             >
                 <div className="navbar ">
                     <div className="navbar-start">
@@ -52,7 +52,7 @@ export const Navbar = () => {
                             </div>
                             <ul
                                 tabIndex="-1"
-                                className="menu menu-sm dropdown-content  rounded-box z-1 mt-3 w-52 p-2 shadow">
+                                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                                 {navItems}
                             </ul>
                         </div>
